@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>سجل السلّة الذكي 2026 - نسخة السحاب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Theme - Default */
+            --main-bg: #f0f2f5;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --primary: #4834d4;
+            --accent: #22a6b3;
+            --whatsapp: #25D366;
+            --text-main: #130f40;
+            --text-dim: #535c68;
+            --danger: #eb4d4b;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --category-bg: #e0e7ff;
+            --card-bg: #ffffff;
+            --border-color: rgba(0,0,0,0.06);
+            --grad: linear-gradient(135deg, #4834d4 0%, #686de0 100%);
+        }
+
+        [data-theme="dark"] {
+            --main-bg: #0f172a; 
+            --glass-bg: rgba(30, 41, 59, 0.9); 
+            --primary: #a29bfe;
+            --accent: #00d2d3;
+            --text-main: #f1f5f9; 
+            --text-dim: #94a3b8; 
+            --category-bg: #334155;
+            --card-bg: #1e293b; 
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --border-color: rgba(255,255,255,0.08);
+            --grad: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        [data-theme="emerald"] { 
+            --primary: #10ac84; 
+            --accent: #1dd1a1; 
+            --category-bg: #d1f2eb; 
+            --main-bg: #f1f9f7;
+            --text-main: #0a3d32;
+            --grad: linear-gradient(135deg, #10ac84 0%, #1dd1a1 100%);
+        }
+
+        [data-theme="sunset"] { 
+            --primary: #ff9f43; 
+            --accent: #ee5253; 
+            --category-bg: #ffedda; 
+            --main-bg: #fffaf5;
+            --text-main: #5d4037;
+            --grad: linear-gradient(135deg, #ff9f43 0%, #ee5253 100%);
+        }
+
+        [data-theme="berry"] { 
+            --primary: #6c5ce7; 
+            --accent: #a29bfe; 
+            --category-bg: #f3f0ff; 
+            --main-bg: #f8f7ff;
+            --text-main: #2d3436;
+            --grad: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+        }
+
+        /* --- تعديل ثيم بايرن ميونخ (الأحمر، الأزرق، الأبيض) --- */
+        [data-theme="bayern"] { 
+            --primary: #dc052d;         /* الأحمر الأساسي */
+            --accent: #0066b2;          /* الأزرق البافاري */
+            --category-bg: #e6eff7;     /* لمسة زرقاء للفئات */
+            --main-bg: #fdfdfd;         /* الأبيض */
+            --text-main: #212121;
+            --grad: linear-gradient(135deg, #dc052d 0%, #0066b2 100%); 
+        }
+        [data-theme="bayern"] .item-row { border-right: 4px solid var(--accent); }
+
+        /* --- تعديل ثيم برشلونة (البلوغرانا) --- */
+        [data-theme="barca"] { 
+            --primary: #a50044;         /* أحمر برسا */
+            --accent: #004d98;          /* أزرق برسا */
+            --category-bg: #fff0f5; 
+            --main-bg: #f8f9fa;
+            --text-main: #1a1a1a;
+            --grad: linear-gradient(135deg, #a50044 0%, #004d98 100%);
+        }
+        [data-theme="barca"] .item-row { border-right: 4px solid var(--primary); border-left: 4px solid var(--accent); }
+
+        /* --- تعديل ثيم ريال مدريد (الملكي) --- */
+        [data-theme="madrid"] { 
+            --primary: #1a3151;         /* الكحلي الملكي */
+            --accent: #febe10;          /* الأصفر الذهبي */
+            --category-bg: #f1f5f9; 
+            --main-bg: #ffffff;
+            --card-bg: #fdfdfd;
+            --text-main: #1a3151;
+            --grad: linear-gradient(135deg, #1a3151 0%, #febe10 100%);
+            --border-color: #d1d5db;
+        }
+        [data-theme="madrid"] .card { border: 1px solid #e2e8f0; }
+        [data-theme="madrid"] .item-row { border-right: 4px solid var(--accent); }
+
+        /* --------------------------- */
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        body { background: var(--main-bg); min-height: 100vh; padding: 20px; padding-top: 80px; display: flex; justify-content: center; color: var(--text-main); overflow-x: hidden; }
+        .container { width: 100%; max-width: 500px; }
+        
+        .brand-card {
+            background: var(--grad);
+            padding: 35px 20px;
+            border-radius: 30px;
+            margin-bottom: 25px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .brand-card::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        .brand-logo { font-size: 60px; display: block; margin-bottom: 10px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2)); }
+        .brand-name { font-size: 26px; font-weight: 900; letter-spacing: 1px; }
+
+        .top-nav { position: fixed; top: 0; left: 0; right: 0; height: 75px; background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); border-bottom: 1px solid var(--border-color); }
+        .btn-nav { background: var(--primary); color: white; border: none; width: 45px; height: 45px; border-radius: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .btn-nav:active { transform: scale(0.9); }
+        
+        #syncIndicator { font-size: 14px; background: var(--card-bg); padding: 8px 15px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; font-weight: bold; }
+
+        .settings-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--main-bg); z-index: 2000; display: none; padding: 25px; overflow-y: auto; }
+        .settings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .settings-overlay .card { border-radius: 22px; padding: 20px; margin-bottom: 18px; }
+        .settings-overlay h3 { font-size: 15px; margin-bottom: 15px; color: var(--primary); font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .settings-overlay input { width: 100% !important; margin-bottom: 12px; padding: 15px; border-radius: 15px; background: var(--main-bg); border: 1px solid var(--border-color); }
+        
+        .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .theme-btn { 
+            height: 55px; border: 2px solid var(--border-color); border-radius: 15px; cursor: pointer; 
+            font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: var(--card-bg); color: var(--text-main);
+        }
+        .theme-btn.active-theme { border-color: var(--primary); box-shadow: 0 0 10px rgba(72, 52, 212, 0.2); }
+
+        .backup-btns { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .backup-btns button { border: none; padding: 15px; border-radius: 15px; font-weight: 900; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        
+        .lists-bar { display: flex; gap: 10px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; margin-bottom: 15px; }
+        .list-tab { padding: 10px 20px; background: var(--card-bg); border-radius: 15px; font-size: 13px; font-weight: bold; cursor: pointer; white-space: nowrap; border: 2px solid transparent; box-shadow: var(--shadow); color: var(--text-dim); }
+        .list-tab.active { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-2px); }
+        
+        .budget-card { background: var(--card-bg); padding: 18px; border-radius: 20px; margin-bottom: 20px; border-right: 6px solid var(--accent); box-shadow: var(--shadow); }
+        .over-budget { border-right-color: var(--danger) !important; background: #fff5f5; }
+        
+        .card { background: var(--card-bg); padding: 22px; border-radius: 28px; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid var(--border-color); width: 100%; overflow: hidden; }
+        
+        input { width: 100%; border: 2px solid var(--border-color); outline: none; transition: 0.2s; box-sizing: border-box !important; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1); }
+
+        .category-divider { padding: 10px 18px; background: var(--category-bg); color: var(--primary); font-size: 14px; font-weight: 900; border-radius: 15px; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 12px; border-right: 5px solid var(--primary); }
+
+        .item-row { background: var(--main-bg); padding: 15px; border-radius: 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid var(--border-color); }
+        .item-info h4 { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+        .item-details { font-size: 12px; color: var(--text-dim); font-weight: 600; }
+        
+        .btn-action { border: none; width: 42px; height: 38px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .btn-edit { background: #eef2ff; color: #4834d4; }
+        .btn-check { background: #d1f7e3; color: #1e8449; }
+        
+        .total-box { background: var(--grad); color: white; padding: 20px; border-radius: 20px; display: flex; justify-content: space-between; font-weight: 900; font-size: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* ستايل صفحة الدخول */
+        #authOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--main-bg); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    </style>
+</head>
+<body>
+
+<div id="authOverlay">
+    <div class="card" style="max-width: 400px; text-align: center;">
+        <h2 style="color: var(--primary); margin-bottom: 20px; font-weight: 900;">🔐 دخول المستخدم</h2>
+        <input type="email" id="authEmail" placeholder="البريد الإلكتروني" style="margin-bottom: 10px; padding: 15px; border-radius: 15px;">
+        <input type="password" id="authPass" placeholder="كلمة المرور" style="margin-bottom: 20px; padding: 15px; border-radius: 15px;">
+        <div style="display: flex; gap: 10px;">
+            <button onclick="handleLogin()" style="flex: 1; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer;">دخول</button>
+            <button onclick="handleSignup()" style="flex: 1; background: var(--accent); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer;">حساب جديد</button>
+        </div>
+        <p id="authError" style="color: var(--danger); margin-top: 15px; font-size: 13px; font-weight: bold;"></p>
+    </div>
+</div>
+
+<div id="importModal" class="modal-overlay">
+    <div class="card" style="width: 100%; max-width: 400px; position: relative;">
+        <h3 style="margin-bottom: 15px; color: var(--primary); display: flex; align-items: center; gap: 10px;">📝 استيراد مواد</h3>
+        <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 10px;">قم بلصق النص (كل مادة في سطر، مثال: حليب (2)):</p>
+        <textarea id="importTextArea" rows="6" style="width:100%; padding:15px; border-radius:15px; border:1px solid var(--border-color); margin-bottom:15px;" placeholder="الصق القائمة هنا..."></textarea>
+        <div style="display: flex; gap: 10px;">
+            <button onclick="processTextImport()" style="flex: 2; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer;">استيراد الآن</button>
+            <button onclick="closeImportModal()" style="flex: 1; background: var(--danger); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer;">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<div class="settings-overlay" id="settingsPage">
+    <div class="settings-header">
+        <h2 style="color: var(--primary); font-weight: 900;">⚙️ الإعدادات</h2>
+        <button onclick="toggleSettings()" class="btn-nav" style="background:var(--danger)">✕</button>
+    </div>
+    
+    <div class="card">
+        <h3>🏷️ هوية التطبيق</h3>
+        <input type="text" id="appNameInp" oninput="updateBrand()" placeholder="اسم البرنامج">
+        <input type="text" id="appLogoInp" oninput="updateBrand()" placeholder="الشعار (إيموجي)">
+    </div>
+
+    <div class="card">
+        <h3>🎨 اختر المظهر</h3>
+        <div class="theme-grid">
+            <div class="theme-btn" id="t-light" onclick="setTheme('light')">⚪ الافتراضي</div>
+            <div class="theme-btn" id="t-dark" onclick="setTheme('dark')">🌑 الليلي</div>
+            <div class="theme-btn" id="t-emerald" onclick="setTheme('emerald')">🌲 الزمردي</div>
+            <div class="theme-btn" id="t-sunset" onclick="setTheme('sunset')">🌅 الغروب</div>
+            <div class="theme-btn" id="t-bayern" onclick="setTheme('bayern')">⚽ بايرن</div>
+            <div class="theme-btn" id="t-barca" onclick="setTheme('barca')">⚽ برشلونة</div>
+            <div class="theme-btn" id="t-madrid" onclick="setTheme('madrid')">⚽ ريال مدريد</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>💰 الميزانية الذكية</h3>
+        <input type="number" id="budgetInp" oninput="setBudget()" placeholder="حدد ميزانية القائمة">
+    </div>
+
+    <div class="card">
+        <h3>💾 النسخ الاحتياطي</h3>
+        <div class="backup-btns">
+            <button onclick="exportData()" style="background:#3498db; color:white;">📤 تصدير نسخة JSON</button>
+            <button onclick="document.getElementById('importFile').click()" style="background:#9b59b6; color:white;">📥 استيراد نسخة JSON</button>
+            <button onclick="importFromText()" style="background:#27ae60; color:white;">📝 استيراد نصي</button>
+            <button onclick="firebase.auth().signOut()" style="background:var(--danger); color:white; margin-top: 10px;">🚪 تسجيل الخروج</button>
+        </div>
+        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+    </div>
+</div>
+
+<div class="top-nav">
+    <div id="syncIndicator">☁️ <span class="sync-text">متصل بالسحاب</span></div>
+    <button onclick="toggleSettings()" class="btn-nav">⚙️</button>
+</div>
+
+<div class="container">
+    <div class="brand-card">
+        <span class="brand-logo" id="displayLogo">🛒</span>
+        <div class="brand-name" id="displayName">سجل السلة الذكي</div>
+    </div>
+
+    <div class="lists-bar" id="listTabs"></div>
+    
+    <div id="budgetStatusMain" class="budget-card" style="display: none;">
+        <div id="budgetStatusMsg" style="font-size: 14px; font-weight: bold; text-align: center;"></div>
+    </div>
+
+    <div class="card">
+        <input type="text" id="itemName" placeholder="اسم المادة..." style="width:100%; padding:14px; border-radius:15px; margin-bottom:12px;">
+        <div style="display:flex; gap:10px; margin-bottom:15px; width:100%;">
+            <input type="text" id="itemQty" placeholder="الكمية" style="flex:1; min-width:0; padding:14px; border-radius:15px;">
+            <input type="number" id="itemPrice" placeholder="السعر" style="flex:1; min-width:0; padding:14px; border-radius:15px;">
+        </div>
+        <div style="display:flex; gap:10px; width:100%;">
+            <button onclick="addItem()" id="addBtn" style="flex:2; background:var(--primary); color:white; border:none; padding:15px; border-radius:15px; font-weight:bold; font-size:16px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">إضافة للمسودة</button>
+            <button onclick="newList()" style="flex:1; background:var(--accent); color:white; border:none; border-radius:15px; font-weight:bold;">+ قائمة</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="collapsible-header" onclick="toggleSection('currentScroll', 'icon1')" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+            <h3 style="font-weight: 900; font-size:18px;">📝 القائمة الحالية <span id="icon1">▼</span></h3>
+            <button onclick="event.stopPropagation(); clearList()" style="color:var(--danger); border:none; background:none; font-weight:bold;">مسح</button>
+        </div>
+        <div id="currentScroll" class="scroll-area" style="margin-top:15px;">
+            <div id="shoppingList"></div>
+        </div>
+        <div class="total-box" style="margin-top:20px;">
+            <span>المجموع الكلي:</span>
+            <span id="totalVal">0 د.ع</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="collapsible-header" onclick="toggleSection('archiveScroll', 'icon2')" style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
+            <h3 style="font-weight: 900; color:var(--text-dim);">📁 الأرشيف <span id="icon2">▼</span></h3>
+            <button onclick="event.stopPropagation(); clearArchive()" style="color:var(--text-dim); border:none; background:none; font-size:12px;">تفريغ الأرشيف</button>
+        </div>
+        <div id="archiveScroll" class="scroll-area" style="display:none; margin-top:15px;">
+            <div id="archiveList"></div>
+        </div>
+    </div>
+
+    <button onclick="sendWA()" style="width:100%; background:var(--whatsapp); color:white; padding:18px; border-radius:22px; border:none; margin-top:10px; font-weight:bold; font-size:17px; margin-bottom: 50px; box-shadow:0 8px 20px rgba(37, 211, 102, 0.2);">إرسال عبر واتساب 📲</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAeof1EfdX8Ce9Psz0m1jQfdC4bhTFXMh4",
+        authDomain: "student-ab274.firebaseapp.com",
+        databaseURL: "https://student-ab274.firebaseio.com",
+        projectId: "student-ab274",
+        storageBucket: "student-ab274.firebasestorage.app",
+        messagingSenderId: "507297526098",
+        appId: "1:507297526098:web:f68f1123ed4d8f6c544a8b",
+        measurementId: "G-3ZLYQJ696Y"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth(); // تعريف الأوث
+    let DOC_ID = "main_user_data";
+
+    // --- منطق تسجيل الدخول الجديد ---
+    async function handleLogin() {
+        const email = document.getElementById('authEmail').value;
+        const pass = document.getElementById('authPass').value;
+        try { await auth.signInWithEmailAndPassword(email, pass); } 
+        catch (e) { document.getElementById('authError').innerText = "خطأ: " + e.message; }
+    }
+
+    async function handleSignup() {
+        const email = document.getElementById('authEmail').value;
+        const pass = document.getElementById('authPass').value;
+        try { await auth.createUserWithEmailAndPassword(email, pass); } 
+        catch (e) { document.getElementById('authError').innerText = "خطأ: " + e.message; }
+    }
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            DOC_ID = "user_" + user.uid; // ربط البيانات بالمستخدم
+            document.getElementById('authOverlay').style.display = 'none';
+            load(); 
+        } else {
+            document.getElementById('authOverlay').style.display = 'flex';
+        }
+    });
+    // ----------------------------------------
+
+    const categoryMap = {
+        "خضروات وفواكه 🍎": ["طماطم", "خيار", "بطاطا", "بصل", "تفاح", "موز", "برتقال", "ليمون", "ثوم", "خضرة", "رقي", "بطيخ", "عنب", "فلفل", "باذنجان", "شجر", "جزر", "خس", "رمان"],
+        "لحوم وأسماك 🥩": ["لحم", "دجاج", "سمك", "كص", "همبرغر", "كفتة", "كباب", "شيش", "باجة"],
+        "ألبان وأجبان 🥛": ["بيض", "حليب", "لبن", "جبن", "قشطة", "زبادي", "قيمر", "راشي", "دبس"],
+        "مواد جافة (مخزن) 🍚": ["رز", "تمن", "سكر", "شكر", "شاي", "زيت", "طحين", "معكرونة", "عدس", "ملح", "برغل", "ماش", "حمص", "فاصوليا", "لبلبي"],
+        "منظفات وعناية 🧼": ["صابون", "تايد", "زاهي", "شامبو", "معجون", "قاصر", "مناديل", "كلينكس", "ديتول", "معطر", "لوشن", "قطن", "فرشاة"],
+        "مجمدات وجاهز 🧊": ["همبركر", "فنگر", "نكت", "بيتزا", "كبة", "بورك", "ايس كريم", "موطه"],
+        "حلويات وسناك 🍫": ["كولا", "بيبسي", "عصير", "نسكافيه", "بسكويت", "كيك", "جبس", "نستلة", "علج", "مكسرات", "حب"],
+        "بهارات وتوابل 🌶️": ["بهارات", "كمون", "كركم", "فلفل اسود", "زعتر", "ماجي", "كاتشب", "مايونيز", "خل", "خردل"],
+        "صيدلية ومنزل 🏥": ["بندول", "دواء", "فيتامين", "بلاستر", "معقم", "بطارية", "لايت", "مصباح", "سلك"]
+    };
+
+    function autoCategory(name) {
+        const n = name.toLowerCase();
+        for (let cat in categoryMap) {
+            if (categoryMap[cat].some(keyword => n.includes(keyword))) return cat;
+        }
+        return "أخرى 📦";
+    }
+
+    let state = {
+        lists: [{id: 1, name: "الرئيسية", budget: 0}],
+        activeId: 1,
+        items: [],
+        theme: 'light',
+        brand: { name: "سجل السلة الذكي", logo: "🛒" }
+    };
+    let editingId = null;
+
+    async function save() {
+        localStorage.setItem('SMART_BASKET_FINAL_V4', JSON.stringify(state));
+        document.getElementById('syncIndicator').innerHTML = `⏳ <span class="sync-text">جاري الحفظ...</span>`;
+        try {
+            await db.collection("basket_app").doc(DOC_ID).set(state);
+            document.getElementById('syncIndicator').innerHTML = `☁️ <span class="sync-text" style="color:var(--primary)">متصل بالسحاب</span>`;
+        } catch (e) {
+            document.getElementById('syncIndicator').innerHTML = `⚠️ <span class="sync-text" style="color:var(--danger)">فشل المزامنة</span>`;
+        }
+    }
+
+    async function load() {
+        document.getElementById('syncIndicator').innerHTML = `🔄 <span class="sync-text">جاري التحميل...</span>`;
+        try {
+            const doc = await db.collection("basket_app").doc(DOC_ID).get();
+            if (doc.exists) { state = doc.data(); } 
+            else { const localData = localStorage.getItem('SMART_BASKET_FINAL_V4'); if (localData) state = JSON.parse(localData); }
+        } catch (e) {
+            const localData = localStorage.getItem('SMART_BASKET_FINAL_V4'); if (localData) state = JSON.parse(localData);
+        }
+        
+        if(!state.brand) state.brand = { name: "سجل السلة الذكي", logo: "🛒" };
+        document.getElementById('appNameInp').value = state.brand.name;
+        document.getElementById('appLogoInp').value = state.brand.logo;
+        
+        setTheme(state.theme || 'light', false); 
+        renderBrand(); renderTabs(); render();
+        document.getElementById('syncIndicator').innerHTML = `☁️ <span class="sync-text" style="color:var(--primary)">متصل بالسحاب</span>`;
+    }
+
+    function toggleSection(elementId, iconId) {
+        const el = document.getElementById(elementId);
+        const icon = document.getElementById(iconId);
+        if (el.style.display === "none" || el.style.display === "") { el.style.display = "block"; icon.innerText = "▼"; } 
+        else { el.style.display = "none"; icon.innerText = "◀"; }
+    }
+
+    function updateBrand() {
+        state.brand.name = document.getElementById('appNameInp').value || "سجل السلة الذكي";
+        state.brand.logo = document.getElementById('appLogoInp').value || "🛒";
+        renderBrand(); save();
+    }
+
+    function renderBrand() {
+        document.getElementById('displayName').innerText = state.brand.name;
+        document.getElementById('displayLogo').innerText = state.brand.logo;
+    }
+
+    function setTheme(t, shouldSave = true) {
+        state.theme = t;
+        document.documentElement.setAttribute('data-theme', t);
+        
+        if(t === 'bayern') { state.brand.name = "بايرن ميونخ FC"; state.brand.logo = "⚽"; }
+        else if(t === 'barca') { state.brand.name = "نادي برشلونة"; state.brand.logo = "🔵🔴"; }
+        else if(t === 'madrid') { state.brand.name = "ريال مدريد CF"; state.brand.logo = "👑"; }
+        
+        document.getElementById('appNameInp').value = state.brand.name;
+        document.getElementById('appLogoInp').value = state.brand.logo;
+        renderBrand();
+
+        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active-theme'));
+        const activeBtn = document.getElementById('t-'+t);
+        if(activeBtn) activeBtn.classList.add('active-theme');
+        
+        if(shouldSave) save();
+    }
+
+    function render() {
+        const listDiv = document.getElementById('shoppingList');
+        const archDiv = document.getElementById('archiveList');
+        listDiv.innerHTML = ""; archDiv.innerHTML = "";
+        let total = 0;
+        const grouped = {};
+        
+        state.items.forEach(item => {
+            if(item.listId !== state.activeId) return;
+            if(!item.archived) {
+                const cat = item.category || autoCategory(item.name);
+                if(!grouped[cat]) grouped[cat] = [];
+                grouped[cat].push(item);
+                const qNum = item.qtyNum || parseFloat(item.qty) || 0;
+                total += (item.price * qNum);
+            } else {
+                archDiv.appendChild(createItemRow(item));
+            }
+        });
+
+        for(let cat in grouped) {
+            const header = document.createElement('div');
+            header.className = 'category-divider';
+            header.innerHTML = cat;
+            listDiv.appendChild(header);
+            grouped[cat].forEach(item => listDiv.appendChild(createItemRow(item)));
+        }
+
+        document.getElementById('totalVal').innerText = total.toLocaleString() + " د.ع";
+        updateBudgetUI(total);
+    }
+
+    function createItemRow(item) {
+        const row = document.createElement('div');
+        row.className = 'item-row';
+        row.style.opacity = item.archived ? "0.6" : "1";
+        row.innerHTML = `
+            <div class="item-info" style="flex:1">
+                <h4>${item.name}</h4>
+                <div class="item-details">
+                    <span style="background:var(--card-bg); padding:2px 8px; border-radius:8px;">📦 ${item.qty}</span>
+                    <span style="color:var(--primary); font-weight:bold;">💰 ${parseFloat(item.price).toLocaleString()}</span>
+                </div>
+            </div>
+            <div class="action-btns" style="display:flex; gap:8px;">
+                ${!item.archived ? `<button class="btn-action btn-edit" onclick="editItem(${item.id})">✏️</button>` : ''}
+                <button class="btn-action btn-check" onclick="toggleItem(${item.id})">${item.archived ? '🔄' : '✅'}</button>
+            </div>
+        `;
+        return row;
+    }
+
+    function updateBudgetUI(total) {
+        const list = state.lists.find(l => l.id === state.activeId);
+        const statusBox = document.getElementById('budgetStatusMain');
+        if(list && list.budget > 0) {
+            statusBox.style.display = "block";
+            const diff = list.budget - total;
+            document.getElementById('budgetStatusMsg').innerHTML = diff < 0 
+                ? `<span style="color:var(--danger)">تجاوزت الميزانية بـ: ${Math.abs(diff).toLocaleString()} د.ع ⚠️</span>` 
+                : `<span style="color:var(--accent)">المتبقي من الميزانية: ${diff.toLocaleString()} د.ع ✨</span>`;
+            statusBox.className = diff < 0 ? "budget-card over-budget" : "budget-card";
+        } else { statusBox.style.display = "none"; }
+    }
+
+    function addItem() {
+        const n = document.getElementById('itemName').value;
+        const qRaw = document.getElementById('itemQty').value || "1";
+        const p = document.getElementById('itemPrice').value || 0;
+        if(!n) return;
+        let qNum = 1;
+        if(qRaw.includes("نص")) qNum = 0.5;
+        else if(qRaw.includes("ربع")) qNum = 0.25;
+        else { const match = qRaw.match(/(\d+(\.\d+)?)/); qNum = match ? parseFloat(match[0]) : 1; }
+        const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        if(editingId) {
+            const i = state.items.find(x => x.id === editingId);
+            i.name = n; i.qty = qRaw; i.qtyNum = qNum; i.price = p; i.category = autoCategory(n);
+            editingId = null; document.getElementById('addBtn').innerText = "إضافة للمسودة";
+        } else {
+            state.items.push({id: Date.now(), listId: state.activeId, name: n, qty: qRaw, qtyNum: qNum, price: p, archived: false, time: time, category: autoCategory(n)});
+        }
+        document.getElementById('itemName').value = ""; document.getElementById('itemQty').value = ""; document.getElementById('itemPrice').value = "";
+        render(); save();
+    }
+
+    function editItem(id) {
+        const i = state.items.find(x => x.id === id);
+        document.getElementById('itemName').value = i.name;
+        document.getElementById('itemQty').value = i.qty;
+        document.getElementById('itemPrice').value = i.price;
+        editingId = id; document.getElementById('addBtn').innerText = "تحديث المادة";
+        window.scrollTo({ top: 200, behavior: 'smooth' });
+    }
+
+    function toggleItem(id) { const i = state.items.find(x => x.id === id); i.archived = !i.archived; render(); save(); }
+    function newList() { const n = prompt("اسم القائمة الجديدة:"); if(n) { const id = Date.now(); state.lists.push({id, name: n, budget: 0}); state.activeId = id; renderTabs(); render(); save(); } }
+    function renderTabs() { document.getElementById('listTabs').innerHTML = state.lists.map(l => `<div class="list-tab ${l.id === state.activeId ? 'active' : ''}" onclick="state.activeId=${l.id}; renderTabs(); render();">${l.name}</div>`).join(''); }
+    function toggleSettings() { const s = document.getElementById('settingsPage'); s.style.display = s.style.display === "block" ? "none" : "block"; }
+    function setBudget() { const l = state.lists.find(x => x.id === state.activeId); l.budget = document.getElementById('budgetInp').value; render(); save(); }
+    function clearList() { if(confirm("مسح القائمة الحالية؟")) { state.items = state.items.filter(i => i.listId !== state.activeId || i.archived); render(); save(); } }
+    function clearArchive() { if(confirm("هل تريد مسح جميع العناصر في الأرشيف لهذه القائمة؟")) { state.items = state.items.filter(i => i.listId !== state.activeId || !i.archived); render(); save(); } }
+
+    function sendWA() { 
+        let m = `*قائمة التسوق - ${state.lists.find(l => l.id === state.activeId).name}*\n`; 
+        state.items.filter(i => i.listId === state.activeId && !i.archived).forEach(i => m += `- ${i.name} (${i.qty})\n`); 
+        window.open(`https://wa.me/?text=${encodeURIComponent(m)}`); 
+    }
+    
+    function importFromText() {
+        document.getElementById('importModal').style.display = "flex";
+        document.getElementById('importTextArea').value = "";
+        document.getElementById('importTextArea').focus();
+    }
+
+    function closeImportModal() { document.getElementById('importModal').style.display = "none"; }
+
+    function processTextImport() {
+        const text = document.getElementById('importTextArea').value;
+        if (!text.trim()) return;
+        const lines = text.split('\n');
+        const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        lines.forEach(line => {
+            let cleanLine = line.replace(/^[\s*-]+/, '').trim(); 
+            if (!cleanLine || cleanLine.includes("قائمة التسوق")) return;
+            let name = cleanLine, qty = "1";
+            const qtyMatch = cleanLine.match(/\(([^)]+)\)/); 
+            if (qtyMatch) { qty = qtyMatch[1]; name = cleanLine.replace(qtyMatch[0], '').trim(); }
+            let qNum = parseFloat(qty) || 1;
+            state.items.push({id: Date.now() + Math.random(), listId: state.activeId, name: name, qty: qty, qtyNum: qNum, price: 0, archived: false, time: time, category: autoCategory(name)});
+        });
+        render(); save(); closeImportModal();
+    }
+
+    function exportData() {
+        const dataStr = JSON.stringify(state, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', 'shopping_backup.json');
+        linkElement.click();
+    }
+
+    function importData(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            try {
+                const importedState = JSON.parse(e.target.result);
+                if(confirm("استبدال البيانات الحالية بالنسخة المرفوعة؟")) {
+                    state = importedState;
+                    await save(); location.reload();
+                }
+            } catch (err) { alert("خطأ في قراءة الملف!"); }
+        };
+        reader.readAsText(file);
+    }
+    // تم حذف window.onload القديمة وتعويضها بـ auth listener بالأعلى
+</script>
+</body>
+</html>
