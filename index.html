@@ -64,21 +64,19 @@
             --grad: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
         }
 
-        /* --- تعديل ثيم بايرن ميونخ (الأحمر، الأزرق، الأبيض) --- */
         [data-theme="bayern"] { 
-            --primary: #dc052d;         /* الأحمر الأساسي */
-            --accent: #0066b2;          /* الأزرق البافاري */
-            --category-bg: #e6eff7;     /* لمسة زرقاء للفئات */
-            --main-bg: #fdfdfd;         /* الأبيض */
+            --primary: #dc052d;         
+            --accent: #0066b2;          
+            --category-bg: #e6eff7;     
+            --main-bg: #fdfdfd;         
             --text-main: #212121;
             --grad: linear-gradient(135deg, #dc052d 0%, #0066b2 100%); 
         }
         [data-theme="bayern"] .item-row { border-right: 4px solid var(--accent); }
 
-        /* --- تعديل ثيم برشلونة (البلوغرانا) --- */
         [data-theme="barca"] { 
-            --primary: #a50044;         /* أحمر برسا */
-            --accent: #004d98;          /* أزرق برسا */
+            --primary: #a50044;         
+            --accent: #004d98;          
             --category-bg: #fff0f5; 
             --main-bg: #f8f9fa;
             --text-main: #1a1a1a;
@@ -86,10 +84,9 @@
         }
         [data-theme="barca"] .item-row { border-right: 4px solid var(--primary); border-left: 4px solid var(--accent); }
 
-        /* --- تعديل ثيم ريال مدريد (الملكي) --- */
         [data-theme="madrid"] { 
-            --primary: #1a3151;         /* الكحلي الملكي */
-            --accent: #febe10;          /* الأصفر الذهبي */
+            --primary: #1a3151;         
+            --accent: #febe10;          
             --category-bg: #f1f5f9; 
             --main-bg: #ffffff;
             --card-bg: #fdfdfd;
@@ -99,8 +96,6 @@
         }
         [data-theme="madrid"] .card { border: 1px solid #e2e8f0; }
         [data-theme="madrid"] .item-row { border-right: 4px solid var(--accent); }
-
-        /* --------------------------- */
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         body { background: var(--main-bg); min-height: 100vh; padding: 20px; padding-top: 80px; display: flex; justify-content: center; color: var(--text-main); overflow-x: hidden; }
@@ -176,8 +171,9 @@
         
         .total-box { background: var(--grad); color: white; padding: 20px; border-radius: 20px; display: flex; justify-content: space-between; font-weight: 900; font-size: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        /* ستايل صفحة الدخول */
         #authOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--main-bg); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        
+        .btn-save-settings { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: bold; margin-top: 10px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -215,8 +211,9 @@
     
     <div class="card">
         <h3>🏷️ هوية التطبيق</h3>
-        <input type="text" id="appNameInp" oninput="updateBrand()" placeholder="اسم البرنامج">
-        <input type="text" id="appLogoInp" oninput="updateBrand()" placeholder="الشعار (إيموجي)">
+        <input type="text" id="appNameInp" placeholder="اسم البرنامج">
+        <input type="text" id="appLogoInp" placeholder="الشعار (إيموجي)">
+        <button onclick="updateBrand(); alert('تم حفظ الهوية بنجاح!')" class="btn-save-settings">حفظ الهوية والشعار ✅</button>
     </div>
 
     <div class="card">
@@ -234,7 +231,8 @@
 
     <div class="card">
         <h3>💰 الميزانية الذكية</h3>
-        <input type="number" id="budgetInp" oninput="setBudget()" placeholder="حدد ميزانية القائمة">
+        <input type="number" id="budgetInp" placeholder="حدد ميزانية القائمة">
+        <button onclick="setBudget(); alert('تم تحديث الميزانية!')" class="btn-save-settings" style="background: var(--accent);">تحديث الميزانية 💰</button>
     </div>
 
     <div class="card">
@@ -306,7 +304,8 @@
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script> <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script> 
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
     const firebaseConfig = {
@@ -322,10 +321,9 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    const auth = firebase.auth(); // تعريف الأوث
+    const auth = firebase.auth(); 
     let DOC_ID = "main_user_data";
 
-    // --- منطق تسجيل الدخول الجديد ---
     async function handleLogin() {
         const email = document.getElementById('authEmail').value;
         const pass = document.getElementById('authPass').value;
@@ -342,14 +340,13 @@
 
     auth.onAuthStateChanged(user => {
         if (user) {
-            DOC_ID = "user_" + user.uid; // ربط البيانات بالمستخدم
+            DOC_ID = "user_" + user.uid; 
             document.getElementById('authOverlay').style.display = 'none';
             load(); 
         } else {
             document.getElementById('authOverlay').style.display = 'flex';
         }
     });
-    // ----------------------------------------
 
     const categoryMap = {
         "خضروات وفواكه 🍎": ["طماطم", "خيار", "بطاطا", "بصل", "تفاح", "موز", "برتقال", "ليمون", "ثوم", "خضرة", "رقي", "بطيخ", "عنب", "فلفل", "باذنجان", "شجر", "جزر", "خس", "رمان"],
@@ -402,8 +399,6 @@
         }
         
         if(!state.brand) state.brand = { name: "سجل السلة الذكي", logo: "🛒" };
-        document.getElementById('appNameInp').value = state.brand.name;
-        document.getElementById('appLogoInp').value = state.brand.logo;
         
         setTheme(state.theme || 'light', false); 
         renderBrand(); renderTabs(); render();
@@ -436,8 +431,6 @@
         else if(t === 'barca') { state.brand.name = "نادي برشلونة"; state.brand.logo = "🔵🔴"; }
         else if(t === 'madrid') { state.brand.name = "ريال مدريد CF"; state.brand.logo = "👑"; }
         
-        document.getElementById('appNameInp').value = state.brand.name;
-        document.getElementById('appLogoInp').value = state.brand.logo;
         renderBrand();
 
         document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active-theme'));
@@ -543,10 +536,49 @@
     }
 
     function toggleItem(id) { const i = state.items.find(x => x.id === id); i.archived = !i.archived; render(); save(); }
-    function newList() { const n = prompt("اسم القائمة الجديدة:"); if(n) { const id = Date.now(); state.lists.push({id, name: n, budget: 0}); state.activeId = id; renderTabs(); render(); save(); } }
-    function renderTabs() { document.getElementById('listTabs').innerHTML = state.lists.map(l => `<div class="list-tab ${l.id === state.activeId ? 'active' : ''}" onclick="state.activeId=${l.id}; renderTabs(); render();">${l.name}</div>`).join(''); }
-    function toggleSettings() { const s = document.getElementById('settingsPage'); s.style.display = s.style.display === "block" ? "none" : "block"; }
-    function setBudget() { const l = state.lists.find(x => x.id === state.activeId); l.budget = document.getElementById('budgetInp').value; render(); save(); }
+    
+    function newList() { 
+        const n = prompt("اسم القائمة الجديدة:"); 
+        if(n) { 
+            const id = Date.now(); 
+            state.lists.push({id, name: n, budget: 0}); 
+            state.activeId = id; 
+            renderTabs(); 
+            render(); 
+            save(); 
+        } 
+    }
+
+    function renderTabs() { 
+        document.getElementById('listTabs').innerHTML = state.lists.map(l => `<div class="list-tab ${l.id === state.activeId ? 'active' : ''}" onclick="state.activeId=${l.id}; renderTabs(); render();">${l.name}</div>`).join(''); 
+    }
+
+    // إصلاح مشكلة قراءة البيانات في الإعدادات
+    function toggleSettings() { 
+        const s = document.getElementById('settingsPage');
+        if (s.style.display === "none" || s.style.display === "") {
+            // عند الفتح: نملأ الحقول بالبيانات الحالية
+            document.getElementById('appNameInp').value = state.brand.name;
+            document.getElementById('appLogoInp').value = state.brand.logo;
+            
+            const currentList = state.lists.find(x => x.id === state.activeId);
+            document.getElementById('budgetInp').value = currentList ? currentList.budget : 0;
+            
+            s.style.display = "block";
+        } else {
+            s.style.display = "none";
+        }
+    }
+
+    function setBudget() { 
+        const l = state.lists.find(x => x.id === state.activeId);
+        if(l) {
+            l.budget = parseFloat(document.getElementById('budgetInp').value) || 0;
+            render(); 
+            save(); 
+        }
+    }
+
     function clearList() { if(confirm("مسح القائمة الحالية؟")) { state.items = state.items.filter(i => i.listId !== state.activeId || i.archived); render(); save(); } }
     function clearArchive() { if(confirm("هل تريد مسح جميع العناصر في الأرشيف لهذه القائمة؟")) { state.items = state.items.filter(i => i.listId !== state.activeId || !i.archived); render(); save(); } }
 
@@ -605,7 +637,6 @@
         };
         reader.readAsText(file);
     }
-    // تم حذف window.onload القديمة وتعويضها بـ auth listener بالأعلى
 </script>
 </body>
 </html>
